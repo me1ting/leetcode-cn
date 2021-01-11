@@ -20,6 +20,7 @@ pub struct Solution {}
 
 use std::rc::Rc;
 use std::cell::RefCell;
+// https://leetcode-cn.com/problems/same-tree/
 impl Solution {
     pub fn is_same_tree(p: Option<Rc<RefCell<TreeNode>>>, q: Option<Rc<RefCell<TreeNode>>>) -> bool {
       fn travel(p: &Option<Rc<RefCell<TreeNode>>>,q: &Option<Rc<RefCell<TreeNode>>>) -> bool {
