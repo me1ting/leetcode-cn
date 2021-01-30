@@ -4,14 +4,14 @@ import "testing"
 
 // https://leetcode-cn.com/problems/swim-in-rising-water/
 // 使用union-find算法，只是复习了一下该算法，实际测试表明，使用该算法求解该问题效率不高
-func swimInWater1(grid [][]int) int {
+func swimInWater(grid [][]int) int {
 	m, n := len(grid), len(grid[0])
 	uf := NewUF(m * n)
 	i := 0
 	last := m*n - 1
 
 	for {
-		if uf.connected(0, last) {
+		if uf.Connected(0, last) {
 			break
 		}
 		i++
@@ -21,11 +21,11 @@ func swimInWater1(grid [][]int) int {
 					curr := y*n + x
 					if y > 0 && grid[y-1][x] <= i {
 						top := curr - m
-						uf.union(curr, top)
+						uf.Union(curr, top)
 					}
 					if x > 0 && grid[y][x-1] <= i {
 						left := curr - 1
-						uf.union(curr, left)
+						uf.Union(curr, left)
 					}
 				}
 			}
@@ -35,49 +35,46 @@ func swimInWater1(grid [][]int) int {
 }
 
 type UF struct {
-	id []int
-	sz []int
+	id   []int
+	size []int
 }
 
 func NewUF(n int) *UF {
 	id := make([]int, n)
-	sz := make([]int, n)
+	size := make([]int, n)
 	for i := 0; i < n; i++ {
 		id[i] = i
-		sz[i] = 1
+		size[i] = 1
 	}
 	return &UF{
-		id: id,
-		sz: sz,
+		id:   id,
+		size: size,
 	}
 }
 
-func (u *UF) connected(i, j int) bool {
-	return u.find(i) == u.find(j)
+func (u *UF) Connected(i, j int) bool {
+	return u.Find(i) == u.Find(j)
 }
 
-func (u *UF) union(i, j int) {
-	m, n := u.find(i), u.find(j)
+func (u *UF) Union(i, j int) bool {
+	m, n := u.Find(i), u.Find(j)
 	if m == n {
-		return
+		return false
 	}
-	if u.sz[m] < u.sz[n] {
-		u.id[m] = n
-		u.sz[n] += u.sz[m]
-	} else {
-		u.id[n] = m
-		u.sz[m] += u.sz[n]
+	if u.size[m] < u.size[n] {
+		m, n = n, m
 	}
+	u.id[n] = m
+	u.size[m] += u.size[n]
+
+	return true
 }
 
-func (u *UF) find(i int) int {
-	for i != u.id[i] {
-		// 没用递归，而是使用次优化方案
-		grand := u.id[u.id[i]]
-		u.id[i] = grand
-		i = grand
+func (u *UF) Find(i int) int {
+	if i != u.id[i] {
+		u.id[i] = u.Find(u.id[i])
 	}
-	return i
+	return u.id[i]
 }
 
 type pos struct {
@@ -88,7 +85,7 @@ type pos struct {
 // 使用搜索算法，使用优先队列（最小堆）维护相邻但未标记的位置，每次取最小的值，标记并将相邻的未标记节点放入队列中，更新结果
 // 直到遇到终点，如果可以立即到达，则保持结果不变，否则更新结果为终点的值
 // 优化：为了避免重复插入，在插入时标记，而非取出时标记
-func swimInWater(grid [][]int) int {
+func swimInWater1(grid [][]int) int {
 	m, n := len(grid), len(grid[0])
 	flood := make([][]bool, m)
 	for i := 0; i < m; i++ {
@@ -154,7 +151,7 @@ func NewMinHeap(cap int) *MinHeap {
 
 func (m *MinHeap) insert(val, x, y int) {
 	m.size++
-	m.data[m.size] = &data{val, x, y,}
+	m.data[m.size] = &data{val, x, y}
 	m.swim(m.size)
 }
 
