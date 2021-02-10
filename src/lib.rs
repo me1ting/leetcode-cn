@@ -1,5 +1,5 @@
+mod array;
 mod graph;
 mod greedy;
-mod tree;
-mod array;
 mod string;
+mod tree;

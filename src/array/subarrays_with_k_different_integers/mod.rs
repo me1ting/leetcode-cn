@@ -1,4 +1,4 @@
-pub struct Solution{}
+pub struct Solution {}
 
 // https://leetcode-cn.com/problems/subarrays-with-k-different-integers/
 // 滑动窗口法：
@@ -13,43 +13,43 @@ pub struct Solution{}
 impl Solution {
     pub fn subarrays_with_k_distinct(a: Vec<i32>, k: i32) -> i32 {
         use std::collections::HashMap;
-        let mut count :i32 = 0;
+        let mut count: i32 = 0;
 
-        let mut l1 :usize = 0;
-        let mut l2 :usize = 0;
-        
+        let mut l1: usize = 0;
+        let mut l2: usize = 0;
+
         let mut k_ns1 = HashMap::new();
         let mut k_ns2 = HashMap::new();
 
         for r in 0..a.len() {
             let i = a[r];
             let i_n = k_ns1.get(&i).unwrap_or(&0);
-            k_ns1.insert(i, i_n+1);
+            k_ns1.insert(i, i_n + 1);
             let i_n = k_ns2.get(&i).unwrap_or(&0);
-            k_ns2.insert(i, i_n+1);
+            k_ns2.insert(i, i_n + 1);
 
-            while k_ns1.len()>k as usize {
+            while k_ns1.len() > k as usize {
                 let i = a[l1];
                 let i_n = k_ns1.get(&i).unwrap_or(&0);
                 if *i_n == 1 {
                     k_ns1.remove(&i);
-                }else{
-                    k_ns1.insert(i, i_n-1);
+                } else {
+                    k_ns1.insert(i, i_n - 1);
                 }
-                l1+=1;
+                l1 += 1;
             }
 
-            while k_ns2.len()>= k as usize {
+            while k_ns2.len() >= k as usize {
                 let i = a[l2];
                 let i_n = k_ns2.get(&i).unwrap_or(&0);
                 if *i_n == 1 {
                     k_ns2.remove(&i);
-                }else{
-                    k_ns2.insert(i, i_n-1);
+                } else {
+                    k_ns2.insert(i, i_n - 1);
                 }
-                l2+=1;
+                l2 += 1;
             }
-            count+=(l2-l1) as i32;
+            count += (l2 - l1) as i32;
         }
 
         count
@@ -61,20 +61,20 @@ mod tests {
     use crate::array::subarrays_with_k_different_integers;
     #[test]
     fn it_works() {
-        let a = vec![1,2,1,2,3];
+        let a = vec![1, 2, 1, 2, 3];
         let k = 2;
         let expected = 7;
         assert_eq!(
             expected,
-            subarrays_with_k_different_integers::Solution::subarrays_with_k_distinct(a,k)
+            subarrays_with_k_different_integers::Solution::subarrays_with_k_distinct(a, k)
         );
 
-        let a = vec![1,1,1,1,1];
+        let a = vec![1, 1, 1, 1, 1];
         let k = 1;
         let expected = 15;
         assert_eq!(
             expected,
-            subarrays_with_k_different_integers::Solution::subarrays_with_k_distinct(a,k)
+            subarrays_with_k_different_integers::Solution::subarrays_with_k_distinct(a, k)
         );
     }
 }
