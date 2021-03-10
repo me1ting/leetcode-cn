@@ -18,7 +18,7 @@ impl Solution {
 
         for b in s1 {
             char_set.insert(*b);
-            let n = char_count.get(b).unwrap_or(&0);
+            let n = *char_count.get(b).unwrap_or(&0);
             char_count.insert(*b, n + 1);
         }
 
@@ -49,7 +49,7 @@ impl Solution {
             if r < l + k {
                 let i = s2[r];
                 if char_set.contains(&i) {
-                    let n = record.get(&i).unwrap_or(&0);
+                    let n = *record.get(&i).unwrap_or(&0);
                     record.insert(i, n + 1);
                 } else {
                     l = r + 1;
@@ -64,8 +64,8 @@ impl Solution {
                 }
 
                 let i = s2[l];
-                let n = record.get(&i).unwrap_or(&0);
-                if n == &1 {
+                let n = *record.get(&i).unwrap_or(&0);
+                if n == 1 {
                     record.remove(&i);
                 } else {
                     record.insert(i, n - 1);

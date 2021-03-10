@@ -23,15 +23,15 @@ impl Solution {
 
         for r in 0..a.len() {
             let i = a[r];
-            let i_n = k_ns1.get(&i).unwrap_or(&0);
+            let i_n = *k_ns1.get(&i).unwrap_or(&0);
             k_ns1.insert(i, i_n + 1);
-            let i_n = k_ns2.get(&i).unwrap_or(&0);
+            let i_n = *k_ns2.get(&i).unwrap_or(&0);
             k_ns2.insert(i, i_n + 1);
 
             while k_ns1.len() > k as usize {
                 let i = a[l1];
-                let i_n = k_ns1.get(&i).unwrap_or(&0);
-                if *i_n == 1 {
+                let i_n = *k_ns1.get(&i).unwrap_or(&0);
+                if i_n == 1 {
                     k_ns1.remove(&i);
                 } else {
                     k_ns1.insert(i, i_n - 1);
@@ -41,8 +41,8 @@ impl Solution {
 
             while k_ns2.len() >= k as usize {
                 let i = a[l2];
-                let i_n = k_ns2.get(&i).unwrap_or(&0);
-                if *i_n == 1 {
+                let i_n = *k_ns2.get(&i).unwrap_or(&0);
+                if i_n == 1 {
                     k_ns2.remove(&i);
                 } else {
                     k_ns2.insert(i, i_n - 1);
