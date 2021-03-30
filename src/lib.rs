@@ -9,3 +9,4 @@ mod dp;
 mod queue;
 mod stack;
 mod backtracking;
+mod search;
