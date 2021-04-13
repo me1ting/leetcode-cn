@@ -7,7 +7,7 @@ import (
 	"testing"
 )
 
-// https://leetcode-cn.com/problems/largest-number/submissions/
+// https://leetcode-cn.com/problems/largest-number/
 // 对数字转换为字符串后进行排序
 // 开头数字大的在前面，一个消耗思维的点是：
 // 如何比较55xxx，55的大小？
