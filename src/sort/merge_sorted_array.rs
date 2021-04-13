@@ -7,7 +7,7 @@ impl Solution {
         let m = m as usize;
         let n = n as usize;
 
-        let mut ans:Vec<i32> = Vec::with_capacity(m+n);
+        let mut ans: Vec<i32> = Vec::with_capacity(m + n);
         let mut i = 0_usize;
         let mut j = 0_usize;
         while i < m && j < n {
@@ -16,25 +16,25 @@ impl Solution {
                 let j_n = nums2.get_unchecked(j);
                 if i_n < j_n {
                     ans.push(*i_n);
-                    i+=1;
-                }else{
+                    i += 1;
+                } else {
                     ans.push(*j_n);
-                    j+=1;
+                    j += 1;
                 }
             }
         }
-        while i<m {
+        while i < m {
             unsafe {
                 let i_n = nums1.get_unchecked(i);
                 ans.push(*i_n);
-                i+=1;
+                i += 1;
             }
         }
-        while j<n {
+        while j < n {
             unsafe {
                 let j_n = nums2.get_unchecked(j);
                 ans.push(*j_n);
-                j+=1;
+                j += 1;
             }
         }
         nums1.clone_from(&ans);

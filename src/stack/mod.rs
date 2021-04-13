@@ -1,4 +1,4 @@
-mod next_greater_element_ii;
-mod remove_all_adjacent_duplicates_in_string;
 mod basic_calculator;
 mod basic_calculator_ii;
+mod next_greater_element_ii;
+mod remove_all_adjacent_duplicates_in_string;
