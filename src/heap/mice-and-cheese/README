@@ -1,0 +1,9 @@
+# 原题
+
+https://leetcode.cn/problems/mice-and-cheese
+
+# 解析
+
+一开始拿到这题，我以为是变种的dp题。后来想想是不对的，要让得分最大化，关键是差值。
+
+设`diff[i] = reward1[i] - reward2[i]`，对diff进行排序，或者使用优先队列，取前K个大值与的和与`reward2`的和，即为本题的答案。
