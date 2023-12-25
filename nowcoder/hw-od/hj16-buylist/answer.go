@@ -10,7 +10,7 @@ import (
 
 func main() {
 	inputs := readInputs()
-	result := answer(inputs.N, inputs.m, inputs.items)
+	result := answer(inputs.N, inputs.M, inputs.items)
 	fmt.Println(result)
 }
 
@@ -74,7 +74,7 @@ func buildGroups(items []*Item) []*Group {
 type Group struct {
 	main        *Item
 	attachments []*Item
-	members     []*Member
+	members     []*Member //0-1分组背包问题的组员
 }
 
 type Member struct {
@@ -120,7 +120,7 @@ func (i *Item) satisfaction() int {
 
 type Inputs struct {
 	N     int
-	m     int
+	M     int
 	items []*Item
 }
 
@@ -134,7 +134,7 @@ func readInputs() Inputs {
 	metaLine := lines[0]
 	nums := strings.Split(metaLine, " ")
 	inputs.N, _ = strconv.Atoi(nums[0])
-	inputs.m, _ = strconv.Atoi(nums[1])
+	inputs.M, _ = strconv.Atoi(nums[1])
 
 	for i, line := range lines[1:] {
 		var item Item

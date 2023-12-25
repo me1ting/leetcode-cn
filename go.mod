@@ -1,3 +1,3 @@
-module github.com/me1ting/leetcode-cn
+module algorithms
 
 go 1.20
